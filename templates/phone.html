@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block body %}
+
+    <h2 style="margin-left:2%">Phone #{{ data.phone_id }}</h2>
+    <table style="margin-left:2%">
+        {% for key, value in data.items() %}
+            <tr>
+                {% if key == "name" %}
+                    <td><b>Name</b></td>
+                    <td>{{ value }}</td>
+                {% elif key == "price_w_vat" %}
+                    <td><b>Price</b></td>
+                    <td>{{ value }}</td>
+                {% elif key == "price_wo_vat" %}
+                    <td><b>Price (without VAT)</b></td>
+                    <td>{{ value }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </table>
+        <p></p>
+        <h3 style="margin-left:2%">Description</h3>
+        {% if data.description %}
+            <p style="font-size:18px;margin-left:2%;padding:1px;margin-right:10%;overflow:hidden;float:left">
+                {{ data.description }}
+            </p>
+        {% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2 style="margin-left:2%">Alza products</h2>
+<p>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for products.." title="Type in a name" style="margin-left:2%">
+</p>
+<table id="phones_table" style="margin-left:2%">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Price (without VAT)</th>
+        <th>VAT</th>
+    </tr>
+    {% for phone in data %}
+    <tr class='clickable-row' data-href="/products/{{ phone.phone_id }}" method=POST>
+        {% for value in phone.values() %}
+            <td>{{value}}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+<script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("phones_table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 1; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+</script>
+<script>
+  jQuery(document).ready(function($) {
+      $(".clickable-row").dblclick(function() {
+          window.location = $(this).data("href");
+      });
+  });
+</script>
+{% endblock %}
